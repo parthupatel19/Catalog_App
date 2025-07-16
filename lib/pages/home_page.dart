@@ -3,7 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project_new/model/catlog_model.dart';
+import 'package:project_new/widgets/cataloglist.dart';
 import 'package:project_new/widgets/drawer.dart';
+import 'package:project_new/widgets/header.dart';
+import 'package:project_new/widgets/themes.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../widgets/items_widget.dart';
 
@@ -43,20 +47,22 @@ class _HomePageState extends State<HomePage> {
     // final dummyList = List.generate(20, (index) => CatlogModel.items[0]);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Center(
-            child: Text('Catalog App')),
-      ),
-      body:(CatlogModel.items.isNotEmpty) ? ListView.builder(
-        itemBuilder: (context, index) {
-          return ProductWidget(
-            item: CatlogModel.items[index],
-          );
-        },
-        itemCount: CatlogModel.items.length,
-      ): Center(child: CircularProgressIndicator(),),
-      drawer: MyDrawer(),
+      backgroundColor: MyTheme.creamColor,
+      body: SafeArea(
+        child: Container(
+          padding: Vx.m32,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CatalogHeader(),
+              if(CatlogModel.items != null && CatlogModel.items.isNotEmpty)
+                Cataloglist().expand()
+              else
+                CircularProgressIndicator().centered().expand(),
+            ],
+          ),
+        ),
+      )
     );
   }
 }
