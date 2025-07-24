@@ -16,7 +16,9 @@ class Catalogitem extends StatelessWidget {
     return VxBox(
       child: Row(
         children: [
-          Image.network(catalog.image).box.rounded.py8.color(MyTheme.creamColor).make().py16().w40(context),
+          Hero(
+              tag: Key(catalog.id.toString()),
+              child: Image.network(catalog.image).box.rounded.py8.color(MyTheme.creamColor).make().py16().w40(context)),
           Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +39,7 @@ class Catalogitem extends StatelessWidget {
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(MyTheme.darkblueColor),
                         ),
-                          child: "Buy".text.color(Colors.white).make(),
+                          child: "Add to cart".text.color(Colors.white).make(),
                       ),
                     ],
                   ).pOnly(right: 8.0)

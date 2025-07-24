@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project_new/model/catlog_model.dart';
+import 'package:project_new/utils/my_routes.dart';
 import 'package:project_new/widgets/cataloglist.dart';
 import 'package:project_new/widgets/drawer.dart';
 import 'package:project_new/widgets/header.dart';
@@ -47,7 +48,17 @@ class _HomePageState extends State<HomePage> {
     // final dummyList = List.generate(20, (index) => CatlogModel.items[0]);
 
     return Scaffold(
-      backgroundColor: MyTheme.creamColor,
+        backgroundColor: context.cardColor,
+        floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              Navigator.pushNamed(context, MyRoutes.cartRoute);
+            },
+          backgroundColor: context.cardColor,
+          child: Icon(
+              Icons.shopping_cart,
+            color: Colors.black,
+          ),
+        ),
       body: SafeArea(
         child: Container(
           padding: Vx.m32,
@@ -56,7 +67,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               CatalogHeader(),
               if(CatlogModel.items != null && CatlogModel.items.isNotEmpty)
-                Cataloglist().expand()
+                Cataloglist().py16().expand()
               else
                 CircularProgressIndicator().centered().expand(),
             ],
